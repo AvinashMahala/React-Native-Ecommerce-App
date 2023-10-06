@@ -28,3 +28,5 @@ mongoose.connect("mongodb+srv://admin:admin@cluster0.zvwn3yq.mongodb.net/",{
 app.listen(port, ()=>{
     console.log("Server is running on port 8000!");
 });
+
+//endpoint to register in the app.
