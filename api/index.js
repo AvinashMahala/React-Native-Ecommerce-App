@@ -14,6 +14,8 @@ app.use(bodyParser.json());
 
 const jwt = require("jsonwebtoken");
 
+const apiUrl = 'http://11.40.130.20:8000/';
+
 mongoose
   .connect("mongodb+srv://admin:admin@cluster0.zvwn3yq.mongodb.net/", {
     useNewUrlParser: true,
@@ -51,7 +53,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
     from: "amazon.com",
     to: email,
     subject: "Email Verification",
-    text: `Please click the following link to verify your email : http://localhost:8080/verify/${verificationToken}`,
+    text: `Please click the following link to verify your email : http://11.40.130.20:8000/verify/${verificationToken}`,
   };
   //Send Email.
   try {
@@ -69,7 +71,7 @@ app.post("/register", async (req, res) => {
     //Check if the email is already registered.
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return req.status(400).json({ message: "Email already registered." });
+      return res.status(400).json({ message: "Email already registered." });
     }
 
     //Create a New User
@@ -83,6 +85,9 @@ app.post("/register", async (req, res) => {
 
     //Send the verification email.
     sendVerificationEmail(newUser.email, newUser.verificationToken);
+    console.log('user created');
+    res.status(200).json({ message: "Registration Successful." });
+
   } catch (error) {
     console.log("Error Registering User: ", error);
     res.status(500).json({ message: "Registration Failed." });

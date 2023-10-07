@@ -16,6 +16,8 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { Alert } from "react-native";
 
+const apiUrl = "http://11.40.130.20:8000/";
+
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,21 +38,25 @@ const RegisterScreen = () => {
 
     //Send a Post request to the backend API.
     axios
-      .post("http://localhost:8000/register", user)
+      .post(apiUrl + "register", user)
       .then((response) => {
-        console.log(response);
         Alert.alert(
           "Registration Successful!",
-          "You Have Registered Successfully."
+          "You have registered successfully."
         );
+        console.log(response);
         setName("");
         setPassword("");
         setEmail("");
       })
       .catch((error) => {
         console.log(error);
-        Alert.alert("Registration Failed.", "An Error Occured.");
+        Alert.alert(
+          "Registration Failed",
+          "An error occurred while registering."
+        );
       });
+
   };
 
   return (
