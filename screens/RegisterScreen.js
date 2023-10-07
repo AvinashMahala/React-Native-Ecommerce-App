@@ -44,7 +44,7 @@ const RegisterScreen = () => {
           "Registration Successful!",
           "You have registered successfully."
         );
-        console.log(response);
+        //console.log(response);
         setName("");
         setPassword("");
         setEmail("");
